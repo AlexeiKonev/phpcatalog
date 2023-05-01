@@ -5,7 +5,7 @@ class Database
     // укажите свои собственные учетные данные для базы данных
     private $host = "localhost";
     private $db_name = "php_oop";
-    private $username = "root";
+    private $username = "user";
     private $password = "root";
     public $conn;
 

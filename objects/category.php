@@ -30,7 +30,8 @@ class Category
         $stmt->execute();
 
         return $stmt;
-    }// получение названия категории по её ID
+    }
+    // получение названия категории по её ID
     function readName()
     {
         // запрос MySQL
