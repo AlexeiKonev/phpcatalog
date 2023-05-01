@@ -21,7 +21,44 @@ require_once "layout_header.php";
         <a href="index.php" class="btn btn-default pull-right">Просмотр всех товаров</a>
     </div>
 
-    <!-- здесь будет html-форма "create product" -->
+    <!-- Здесь будет PHP код -->
+
+    <!-- HTML-формы для создания товара -->
+    <form action="<?= htmlspecialchars($_SERVER["PHP_SELF"]) ?>" method="post">
+
+        <table class="table table-hover table-responsive table-bordered">
+
+            <tr>
+                <td>Название</td>
+                <td><input type="text" name="name" class="form-control" /></td>
+            </tr>
+
+            <tr>
+                <td>Цена</td>
+                <td><input type="text" name="price" class="form-control" /></td>
+            </tr>
+
+            <tr>
+                <td>Описание</td>
+                <td><textarea name="description" class="form-control"></textarea></td>
+            </tr>
+
+            <tr>
+                <td>Категория</td>
+                <td>
+                    <!-- здесь будут категории из базы данных -->
+                </td>
+            </tr>
+
+            <tr>
+                <td></td>
+                <td>
+                    <button type="submit" class="btn btn-primary">Создать</button>
+                </td>
+            </tr>
+
+        </table>
+    </form>
 
 <?php // подвал
 require_once "layout_footer.php";
