@@ -21,7 +21,27 @@ require_once "layout_header.php";
         <a href="index.php" class="btn btn-default pull-right">Просмотр всех товаров</a>
     </div>
 
-    <!-- Здесь будет PHP код -->
+<?php
+// если форма была отправлена
+if ($_POST)
+{
+    // установим значения свойствам товара
+    $product->name = $_POST["name"];
+    $product->price = $_POST["price"];
+    $product->description = $_POST["description"];
+    $product->category_id = $_POST["category_id"];
+
+    // создание товара
+    if ($product->create()) {
+        echo '<div class="alert alert-success">Товар был успешно создан.</div>';
+    }
+
+    // если не удается создать товар, сообщим об этом пользователю
+    else {
+        echo '<div class="alert alert-danger">Невозможно создать товар.</div>';
+    }
+}
+?>
 
     <!-- HTML-формы для создания товара -->
     <form action="<?= htmlspecialchars($_SERVER["PHP_SELF"]) ?>" method="post">
@@ -46,7 +66,21 @@ require_once "layout_header.php";
             <tr>
                 <td>Категория</td>
                 <td>
-                    <!-- здесь будут категории из базы данных -->
+                    <?php
+                    // читаем категории товаров из базы данных
+                    $stmt = $category->read();
+
+                    // помещаем их в выпадающий список
+                    echo "<select class='form-control' name='category_id'>";
+                    echo "<option>Выбрать категорию...</option>";
+
+                    while ($row_category = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                        extract($row_category);
+                        echo "<option value='{$id}'>{$name}</option>";
+                    }
+
+                    echo "</select>";
+                    ?>
                 </td>
             </tr>
 
