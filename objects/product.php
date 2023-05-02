@@ -13,6 +13,7 @@ class Product
     public $price;
     public $description;
     public $category_id;
+    public $image;
     public $timestamp;
 
     public function __construct($db)
@@ -23,11 +24,10 @@ class Product
     // метод создания товара
     function create()
     {
-        // запрос MySQL для вставки записей в таблицу БД «products»
-        $query = "INSERT INTO
-                    " . $this->table_name . "
-                SET
-                    name=:name, price=:price, description=:description, category_id=:category_id, created=:created";
+        // запрос
+        $query = "INSERT INTO " . $this->table_name . "
+    SET name=:name, price=:price, description=:description,
+        category_id=:category_id, image=:image, created=:created";
 
         $stmt = $this->conn->prepare($query);
 
@@ -37,6 +37,7 @@ class Product
         $this->description = htmlspecialchars(strip_tags($this->description));
         $this->category_id = htmlspecialchars(strip_tags($this->category_id));
 
+        $this->image = htmlspecialchars(strip_tags($this->image));
         // получаем время создания записи
         $this->timestamp = date("Y-m-d H:i:s");
 
@@ -47,6 +48,7 @@ class Product
         $stmt->bindParam(":category_id", $this->category_id);
         $stmt->bindParam(":created", $this->timestamp);
 
+        $stmt->bindParam(":image", $this->image);
         if ($stmt->execute()) {
             return true;
         } else {
