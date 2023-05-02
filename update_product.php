@@ -32,7 +32,31 @@ include_once "layout_header.php";
         <a href="index.php" class="btn btn-default pull-right">Просмотр всех товаров</a>
     </div>
 
-    <!-- здесь будет контент -->
+<?php
+// если форма была отправлена (submit)
+if ($_POST) {
+
+    // устанавливаем значения свойствам товара
+    $product->name = $_POST["name"];
+    $product->price = $_POST["price"];
+    $product->description = $_POST["description"];
+    $product->category_id = $_POST["category_id"];
+
+    // обновление товара
+    if ($product->update()) {
+        echo "<div class='alert alert-success alert-dismissable'>";
+        echo "Товар был обновлён.";
+        echo "</div>";
+    }
+
+    // если не удается обновить товар, сообщим об этом пользователю
+    else {
+        echo "<div class='alert alert-danger alert-dismissable'>";
+        echo "Невозможно обновить товар.";
+        echo "</div>";
+    }
+}
+?>
 
     <form action="<?= htmlspecialchars($_SERVER["PHP_SELF"] . "?id={$id}"); ?>" method="post">
         <table class="table table-hover table-responsive table-bordered">
